@@ -66,10 +66,10 @@ diversity_index2<-data.frame(Sample=rownames(diversity_index))
 diversity_index3<-cbind(diversity_index2, diversity_index)
 write.csv(diversity_index3, "alpha_diversity_index_vf.csv", quote = FALSE, sep = ",", row.names = FALSE, col.names = TRUE)
 
-#Cálculos manuales de los indices de diversidad
+#CÃ¡lculos manuales de los indices de diversidad
 Shannon.index <- estimate_richness(physeq_mg, measures = "Shannon")
 
-#Gráfico diversidad alfa, agrupado por percentiles y en formato de boxplot
+#GrÃ¡fico diversidad alfa, agrupado por percentiles y en formato de boxplot
 png("alpha_indexesX.png", width = 18*200, height = 12*200, res = 400, pointsize = 6)
 plot_richness(physeq, x = "percentile", color = "percentile", measures=c("Shannon", "Simpson", "InvSimpson")) + 
               geom_boxplot(aes(group = percentile, fill = percentile), alpha = 0.8, color = "black") + 
@@ -105,11 +105,3 @@ dev.off()
 matrix_shannon <- import_data("alphadv_shannon.csv")
 df_shannon <- as.data.frame(matrix_shannon)
 kruskal.test(Shannon ~Group, data = df_shannon)
-
-matrix_simp <- import_data("alphadv_simpson.csv")
-df_simp <- as.data.frame(matrix_simp)
-kruskal.test(Simpson ~Group, data = df_simp)
-
-matrix_invs <- import_data("alphadv_invsimp.csv")
-df_invs <- as.data.frame(matrix_invs)
-kruskal.test(InvSimpson ~Group, data = df_invs)
